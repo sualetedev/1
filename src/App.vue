@@ -1,16 +1,15 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <TodoList />
+  <TarjetaPresentacion />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import TodoList from './components/TodoList.vue'
+import TarjetaPresentacion from './components/TarjetaPresentacion.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld, TodoList,
+    TarjetaPresentacion
   }
 }
 </script>
