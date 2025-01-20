@@ -3,19 +3,18 @@
     <div id="formulario">
         <form @submit.prevent="submitForm">
             <div>
-                <label for="nombre">Nombre: </label>
-                <input type="text" id="name" v-model="form.name" />
-                <span v-if="errors.name" class="error">{{ error.name }} </span>
+                <label for="tarea">Tarea: </label>
+                <input type="text" id="name" v-model="inputValue"/>
+                <span v-if="errors.tarea" class="error">{{ error.tarea }} </span>
             </div>
-
-            <div>
-                <label for="correo">Correo electrónico: </label>
-                <input type="email" id="email" v-model="form.email" />
-                <span v-if="errors.email" class="error">{{ error.email }} </span>
-            </div>
-
             <button type="submit">Enviar </button>
         </form>
+    </div>
+    <div id="formulario"> 
+      <p> Tareas agregadas: </p>
+      <ul>
+        <li v-for="(tarea, index) in tareas" :key="index"> {{ tarea }} </li>
+      </ul>
     </div>
 
 </template>
@@ -24,15 +23,13 @@
   export default {
     data() {
     return {
+      inputValue: "",
+      tareas: [],
       form: {
-        name: '',
-        email: '',
-        password: '',
+        tarea: '',    
       },
       errors: {
-        name: null,
-        email: null,
-        password: null,
+        tarea: null,
       },
     };
   },
@@ -41,32 +38,18 @@
       this.errors = {}; // Reiniciar errores
       let valid = true;
 
-      if (!this.form.name) {
-        this.errors.name = 'El nombre es obligatorio.';
+      if (!this.inputValue) {
+        this.errors.tarea = 'Tienes que introducir una tarea';
         valid = false;
       }
-
-      if (!this.form.email) {
-        this.errors.email = 'El correo electrónico es obligatorio.';
-        valid = false;
-      } else if (!/\S+@\S+\.\S+/.test(this.form.email)) {
-        this.errors.email = 'El correo electrónico no es válido.';
-        valid = false;
-      }
-
-      if (!this.form.password) {
-        this.errors.password = 'La contraseña es obligatoria.';
-        valid = false;
-      } else if (this.form.password.length < 6) {
-        this.errors.password = 'La contraseña debe tener al menos 6 caracteres.';
-        valid = false;
-      }
-
       return valid;
     },
     submitForm() {
       if (this.validateForm()) {
-        alert('Formulario enviado con éxito');
+        //Introducir el valor del submit en la variable
+        this.tareas.push(this.inputValue);
+        //Resetear input a ""
+        this.inputValue= "",
         console.log(this.form);
       }
     },
@@ -79,8 +62,7 @@
   color: black;
   font-size: 30px;
   font-family: Courier;
-  text-align: Left;
-  
+  text-align: Left;  
 }
 .error {
   color: red;
